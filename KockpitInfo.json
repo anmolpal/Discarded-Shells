@@ -1,0 +1,10 @@
+{
+    "KOCKPIThadoop": "no",
+    "KOCKPITspark": "no",
+    "KOCKPIThive": "no",
+    "KOCKPITairflow": "no",
+    "KOCKPITpostgres": "no",
+    "KOCKPITmysql": "yes",
+    "KOCKPITmongodb": "no",
+    "KOCKPITmssql": "yes"
+}

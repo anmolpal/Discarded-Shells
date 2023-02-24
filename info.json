@@ -1,0 +1,22 @@
+{
+    "user": "azure",
+    "password": "Shelby51035252",
+    "java": "8",
+    "hostname": "NucleusMaster-Linux",
+    "pythonVersion": "3.6",
+    "hadoopVersion": "3.2",
+    "masterIP" :"20.228.178.242",
+    "masterIP1" :["20.228.178.242"
+    ],
+    "slaveIP" :["20.25.51.184"
+    ],
+    "sparkVersion": "3.1",
+    "sparkCores": "2",
+    "sparkMemory": "2g",
+    "hive": "no",
+    "airflow": "no",
+    "postgres": "yes",
+    "mysql": "yes",
+    "mongodb": "no",
+    "mssql": "yes"
+}
