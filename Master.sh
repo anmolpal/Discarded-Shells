@@ -71,9 +71,6 @@ else
     sudo wget https://github.com/anmolpal/JAVA/archive/refs/heads/main.zip
     sudo apt-get install unzip
     sudo unzip main.zip
-    cd /usr/local/JAVA-main/
-    sudo mv redgear.py /usr/local/src/
-    python3 /usr/local/src/redgear.py
 fi
 
 read -t 2 -p "Java Version is: "
@@ -669,7 +666,7 @@ then
     else
         echo "Spark does not exist. Downloading Spark"
         cd /usr/local/kockpit-tools/
-        sudo wget https://dlcdn.apache.org/spark/spark-3.1.3/spark-3.1.3-bin-hadoop3.2.tgz
+        sudo wget https://archive.apache.org/dist/spark/spark-3.1.3/spark-3.1.3-bin-hadoop3.2.tgz
         sudo tar -xvf spark-3.1.3-bin-hadoop3.2.tgz
         sudo rm -rf spark-3.1.3-bin-hadoop3.2.tgz
         sudo chmod 777 /usr/local/kockpit-tools/spark-3.1.3-bin-hadoop3.2
