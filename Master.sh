@@ -746,11 +746,11 @@ then
 
         cd /usr/local/kockpit-tools/spark-3.1.3-bin-hadoop3.2/jars
     
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/sqljdbc42.jar
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/mssql-jdbc-7.2.0.jre8.jar
     
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/postgresql-42.2.20.jre7.jar
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/postgresql-42.2.20.jre7.jar
     
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/mssql-jdbc-7.2.0.jre8.jar
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/sqljdbc42.jar
         yes | sudo apt-get install python3-pip
         pip3 install pyspark==3.1.3
         sudo pip3 install pyspark==3.1.3
@@ -852,11 +852,11 @@ then
 
         cd /usr/local/kockpit-tools/spark-3.2.2-bin-hadoop3.2/jars
     
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/sqljdbc42.jar
-    
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/postgresql-42.2.20.jre7.jar
-    
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/mssql-jdbc-7.2.0.jre8.jar
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/mssql-jdbc-7.2.0.jre8.jar
+        
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/postgresql-42.2.20.jre7.jar
+        
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/sqljdbc42.jar
         yes | sudo apt-get install python3-pip
         pip3 install pyspark==3.2.2
         sudo pip3 install pyspark==3.2.2
@@ -957,11 +957,9 @@ then
 
         cd /usr/local/kockpit-tools/spark-3.0.3-bin-hadoop3.2/jars
     
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/sqljdbc42.jar
-    
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/postgresql-42.2.20.jre7.jar
-    
-        sudo wget --no-check-certificate --content-disposition https://github.com/anmolpal/Spark-Drivers/raw/main/mssql-jdbc-7.2.0.jre8.jar
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/mssql-jdbc-7.2.0.jre8.jar
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/postgresql-42.2.20.jre7.jar
+        sudo wget --no-check-certificate --content-disposition https://github.com/KockpitAnalytics/nuclues-shell/raw/main/sqljdbc42.jar
     
     fi
 else
