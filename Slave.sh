@@ -1158,10 +1158,10 @@ then
         yes | sudo apt install postgresql postgresql-contrib
         sudo ufw allow 22/tcp
         sudo ufw allow 5432/tcp
-        sudo wget https://github.com/anmolpal/Nucleus-Master-and-Slave-Shell/archive/refs/heads/main.zip
+        sudo wget https://github.com/KockpitAnalytics/nuclues-shell/archive/refs/heads/main.zip
         sudo apt install unzip
         sudo unzip main.zip
-        cd /usr/local/kockpit-tools/Nucleus-Master-and-Slave-Shell-main
+        cd /usr/local/kockpit-tools/nuclues-shell-main
         sudo mv pg_hba.conf postgresql.conf /etc/postgresql/10/main/
         sudo service postgresql restart   
     fi
