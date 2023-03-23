@@ -1154,7 +1154,7 @@ then
         sudo wget https://github.com/KockpitAnalytics/nuclues-shell/archive/refs/heads/main.zip
         sudo apt install unzip
         sudo unzip main.zip
-        cd /usr/local/kockpit-tools/Nucleus-Master-and-Slave-Shell-main
+        cd /usr/local/kockpit-tools/nuclues-shell-main
         sudo mv pg_hba.conf postgresql.conf /etc/postgresql/10/main/
         sudo service postgresql restart   
     fi
