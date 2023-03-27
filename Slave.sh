@@ -1319,6 +1319,15 @@ then
         sudo mkdir MongoDB
         yes | sudo apt-get install mongodb
         mongo --version
+        cd /usr/local/
+        sudo rm -rf nuclues-shell-main
+        sudo rm -rf main.zip
+        sudo wget https://github.com/KockpitAnalytics/nuclues-shell/archive/refs/heads/main.zip
+        sudo apt install unzip
+        sudo unzip main.zip
+        cd /usr/local/kockpit-tools/nuclues-shell-main
+        sudo mv mongodb.conf /etc/
+        sudo service mongodb restart 
     fi    
 else
     echo "MongoDB Installation Skipped"
