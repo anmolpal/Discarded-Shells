@@ -1396,120 +1396,105 @@ else
 fi
 
 #############################################Supervisor Configuration########################################
-cd /usr/local/
-superuser=`jq '.user' info.json`
-cd /usr/local/etc/
-sudo touch superuser1.txt
-sudo chmod 777 superuser1.txt
-echo $superuser | sed "s/['\"]//g" > superuser1.txt
-superuser1=`awk 'FNR ==1 {print $1}' /usr/local/etc/superuser1.txt`
-cd /usr/local/
-superpassword=`jq '.password' info.json`
-cd /usr/local/etc/
-sudo touch superpassword1.txt
-sudo chmod 777 superpassword1.txt
-echo $superpassword | sed "s/['\"]//g" > superpassword1.txt
-superpassword1=`awk 'FNR ==1 {print $1}' /usr/local/etc/superpassword1.txt`
-sudo touch airflow.sh
-sudo chmod 777 airflow.sh
-sudo touch airflow1.sh
-sudo chmod 777 airflow1.sh
-sudo touch airflow2.sh
-sudo chmod 777 airflow2.sh
-echo "
-cd /home/$superuser1/airflow/
-sudo rm -rf airflow-scheduler.err
-sudo rm -rf airflow-scheduler.log
-sudo rm -rf airflow-scheduler.out
-sudo rm -rf airflow-scheduler.pid
-sudo rm -rf airflow-webserver-monitor.pid
-sudo rm -rf airflow-webserver.err
-sudo rm -rf airflow-webserver.log
-sudo rm -rf airflow-webserver.out
-sudo rm -rf airflow-webserver.pid
-#sudo rm -rf airflow.db
-#airflow webserver -p 8181 -D
-#airflow scheduler -D" > airflow.sh
+#//////////////////////////////////////////////
+#////////////////Airflow-Webserver.Service /////////////////////////
+
+cd /etc/systemd/system
+sudo touch airflow-webserver.service
+sudo chmod 777 airflow-webserver.service
 
 echo "
-airflow webserver -p 8181 -D
-airflow scheduler -D " > airflow1.sh
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements. See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership. The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# “License”); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+[Unit]
+Description=Airflow webserver daemon
+After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+[Service]
+EnvironmentFile=/etc/environment
+User=$USER
+Group=$USER
+Type=simple
+ExecStart= /usr/local/bin/airflow webserver -p 8181
+Restart=on-failure
+RestartSec=5s
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/airflow-webserver.service
 
+cd /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable airflow-webserver.service
+sudo systemctl start airflow-webserver.service
+
+
+# ////////////Airflow-Schedluer.service/////////////////
+
+cd /etc/systemd/system
+sudo touch airflow-schedule.service
+sudo chmod 777 airflow-schedule.service
+#sudo ln -s /etc/systemd/system  /etc/systemd/system/
 echo "
-/usr/bin/python3 /home/$superuser1/.local/bin/airflow webserver -p 8181 -D
-/usr/bin/python3 /home/$superuser1/.local/bin/airflow scheduler -D " > airflow2.sh
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements. See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership. The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# “License”); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+[Unit]
+Description=Airflow scheduler daemon
+After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+[Service]
+EnvironmentFile=/etc/environment
+User=$USER
+Group=$USER
+Type=simple
+ExecStart=/usr/local/bin/airflow scheduler
+Restart=always
+RestartSec=5s
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/airflow-schedule.service
 
-yes | sudo apt-get install supervisor
-cd /etc/supervisor/conf.d/
-sudo touch kockpitetl.conf
-sudo chmod 777 kockpitetl.conf
-sudo touch airflowetl.conf
-sudo chmod 777 airflowetl.conf
-sudo touch airflowetl1.conf
-sudo chmod 777 airflowetl1.conf
-sudo touch airflowetl2.conf
-sudo chmod 777 airflowetl2.conf
-echo "
-[program:autostart]
-command=/bin/bash /usr/local/autostart.sh
-user=$superuser1
-password=$superpassword1
-autostart=true
-autorestart=true
-#startsecs = 0
-#autorestart = false
-#startretries = 1
-stderr_logfile=/var/log/supervisor/test.err.log
-stdout_logfile=/var/log/supervisor/test.out.log " > kockpitetl.conf
+cd /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable airflow-schedule.service
+sudo systemctl start airflow-schedule.service
 
-echo "
-[program:airflow]
-command = /bin/bash /usr/local/etc/airflow.sh
-user=$superuser1
-password=$superpassword1
-chown=$superuser1
-#autostart=true
-#autorestart=true
-startsecs = 0
-autorestart = false
-startretries = 1" > airflowetl.conf
+cd /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable airflow-webserver.service
+sudo systemctl start airflow-webserver.service
 
-if [[ $python == *3.6* ]]
-then
-    echo "
-    [program:airflowwebserver]
-    command = /bin/bash /usr/local/etc/airflow1.sh
-    user=$superuser1
-    password=$superpassword1
-    chown=$superuser1
-    autostart=true
-    autorestart=true
-    #startsecs = 0
-    #autorestart = false
-    #startretries = 1 
-    stderr_logfile=/var/log/supervisor/python3.6test.err.log
-    stdout_logfile=/var/log/supervisor/python3.6test.out.log " > airflowetl1.conf
-    sed 's/^[ \t]*//' airflowetl1.conf > airflowetl2.conf
-    sudo rm airflowetl1.conf
-elif [[ $python == *3.7* ]] || [[ $python == *3.8* ]] || [[ $python == *3.9* ]] || [[ $python == *3.10* ]]
-then
-    echo "
-    [program:airflowwebserver]
-    command = /bin/bash /usr/local/etc/airflow2.sh
-    user=$superuser1
-    password=$superpassword1
-    chown=$superuser1
-    autostart=true
-    autorestart=true
-    stderr_logfile=/var/log/supervisor/python3.7test.err.log
-    stdout_logfile=/var/log/supervisor/python3.7test.out.log " > airflowetl1.conf
-    sed 's/^[ \t]*//' airflowetl1.conf > airflowetl2.conf
-    sudo rm airflowetl1.conf
-else
-    echo " "
-fi        
-
-
+echo "******************** Airflow Installed *********************"
+echo "To check the airflow services use given cmd"
+echo "check airflow webserver use cmd: sudo systemctl status airflow-webserver.service "
+echo "check airflow scheduler use cmd: sudo systemctl status airflow-schedule.service"      
+   
 ######################################################### Installing NOTEBOOK #################################################
 #notebook install start
 cd /usr/local/
