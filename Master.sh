@@ -1312,7 +1312,7 @@ then
         sudo mkdir MongoDB
         yes | sudo apt-get install mongodb
         mongo --version
-        cd /usr/local/
+        cd /usr/local/kockpit-tools
         sudo rm -rf nuclues-shell-main
         sudo rm -rf main.zip
         sudo wget https://github.com/KockpitAnalytics/nuclues-shell/archive/refs/heads/main.zip
