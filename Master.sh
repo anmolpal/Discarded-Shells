@@ -1395,6 +1395,23 @@ else
     echo " "
 fi
 
+yes | sudo apt-get install supervisor
+cd /etc/supervisor/conf.d/
+sudo touch kockpitetl.conf
+sudo chmod 777 kockpitetl.conf
+echo "
+[program:autostart]
+command=/bin/bash /usr/local/autostart.sh
+user=$superuser1
+password=$superpassword1
+autostart=true
+autorestart=true
+#startsecs = 0
+#autorestart = false
+#startretries = 1
+stderr_logfile=/var/log/supervisor/test.err.log
+stdout_logfile=/var/log/supervisor/test.out.log " > kockpitetl.conf
+
 #############################################Supervisor Configuration########################################
 #//////////////////////////////////////////////
 #////////////////Airflow-Webserver.Service /////////////////////////
