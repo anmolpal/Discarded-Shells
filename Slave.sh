@@ -68,12 +68,6 @@ else
     yes | sudo apt install openjdk-8-jdk-headless
     sudo cp -r /usr/lib/jvm/java-8-openjdk-amd64 /usr/local/kockpit-tools/
     sudo pip3 install simplejson
-    sudo wget https://github.com/anmolpal/JAVA/archive/refs/heads/main.zip
-    sudo apt-get install unzip
-    sudo unzip main.zip
-    cd /usr/local/JAVA-main/
-    sudo mv redgear.py /usr/local/src/
-    python3 /usr/local/src/redgear.py
 fi
 
 read -t 2 -p "Java Version is: "
