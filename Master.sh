@@ -1394,6 +1394,20 @@ then
 else
     echo " "
 fi
+cd /usr/local/
+superuser=`jq '.user' info.json`
+cd /usr/local/etc/
+sudo touch superuser1.txt
+sudo chmod 777 superuser1.txt
+echo $superuser | sed "s/['\"]//g" > superuser1.txt
+superuser1=`awk 'FNR ==1 {print $1}' /usr/local/etc/superuser1.txt`
+cd /usr/local/
+superpassword=`jq '.password' info.json`
+cd /usr/local/etc/
+sudo touch superpassword1.txt
+sudo chmod 777 superpassword1.txt
+echo $superpassword | sed "s/['\"]//g" > superpassword1.txt
+superpassword1=`awk 'FNR ==1 {print $1}' /usr/local/etc/superpassword1.txt`
 
 yes | sudo apt-get install supervisor
 cd /etc/supervisor/conf.d/
