@@ -1025,15 +1025,17 @@ then
         cd /usr/local/kockpit-tools/apache-hive-3.1.2-bin/bin/
         sudo chmod 777 hive-config.sh 
         echo "export HADOOP_HOME=/usr/local/kockpit-tools/hadoop-3.3.2" >> hive-config.sh
-        cd /usr/local/kockpit-tools/apache-hive-3.1.2-bin/conf/
-        sudo wget https://github.com/Anmol-Recker/Hive/archive/refs/heads/main.zip
+        cd /usr/local/kockpit-tools
+        sudo wget https://github.com/KockpitAnalytics/nuclues-shell/archive/refs/heads/main.zip
+        cd /usr/local/kockpit-tools/nuclues-shell-main
         sudo apt install unzip
         sudo unzip main.zip
-        cd /usr/local/kockpit-tools/apache-hive-3.1.2-bin/conf/Hive-main/
         sudo mv hive-site.xml /usr/local/kockpit-tools/apache-hive-3.1.2-bin/conf/
         cd /usr/local/kockpit-tools/apache-hive-3.1.2-bin/lib/
         sudo rm guava-19.0.jar
-        sudo wget https://github.com/Anmol-Recker/Hive/raw/main/guava-27.0-jre.jar
+        sudo wget https://github.com/KockpitAnalytics/nuclues-shell/raw/main/Hive/guava-27.0-jre.jar
+        cd /usr/local/kockpit-tools
+        sudo rm -rf main.zip nuclues-shell-main
     fi
 else
     echo " "    
