@@ -68,9 +68,6 @@ else
     yes | sudo apt install openjdk-8-jdk-headless
     sudo cp -r /usr/lib/jvm/java-8-openjdk-amd64 /usr/local/kockpit-tools/
     sudo pip3 install simplejson
-    sudo wget https://github.com/anmolpal/JAVA/archive/refs/heads/main.zip
-    sudo apt-get install unzip
-    sudo unzip main.zip
 fi
 
 read -t 2 -p "Java Version is: "
