@@ -1368,6 +1368,105 @@ else
     sudo rm hosts.txt
     jps
 fi  
+#############################################Systemd Configuration For Airflow########################################
+
+#////////////////Airflow-Webserver.Service /////////////////////////
+
+cd /etc/systemd/system
+sudo touch airflow-webserver.service
+sudo chmod 777 airflow-webserver.service
+
+echo "
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements. See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership. The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# “License”); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+[Unit]
+Description=Airflow webserver daemon
+After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+[Service]
+EnvironmentFile=/etc/environment
+User=$USER
+Group=$USER
+Type=simple
+ExecStart= /usr/local/bin/airflow webserver -p 8181
+Restart=on-failure
+RestartSec=5s
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/airflow-webserver.service
+
+cd /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable airflow-webserver.service
+sudo systemctl start airflow-webserver.service
+
+
+# ////////////Airflow-Schedluer.service/////////////////
+
+cd /etc/systemd/system
+sudo touch airflow-schedule.service
+sudo chmod 777 airflow-schedule.service
+#sudo ln -s /etc/systemd/system  /etc/systemd/system/
+echo "
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements. See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership. The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# “License”); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+[Unit]
+Description=Airflow scheduler daemon
+After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+[Service]
+EnvironmentFile=/etc/environment
+User=$USER
+Group=$USER
+Type=simple
+ExecStart=/usr/local/bin/airflow scheduler
+Restart=always
+RestartSec=5s
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/airflow-schedule.service
+
+cd /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable airflow-schedule.service
+sudo systemctl start airflow-schedule.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable airflow-webserver.service
+sudo systemctl start airflow-webserver.service
+
+echo "******************** Airflow Installed *********************"
+echo "To check the airflow services use given cmd"
+echo "check airflow webserver use cmd: sudo systemctl status airflow-webserver.service "
+echo "check airflow scheduler use cmd: sudo systemctl status airflow-schedule.service"      
+
 
 ######################################################### Installing NOTEBOOK #################################################
 #notebook install start
