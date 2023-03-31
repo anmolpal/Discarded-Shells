@@ -663,7 +663,7 @@ then
     else
         echo "Spark does not exist. Downloading Spark"
         cd /usr/local/kockpit-tools/
-        sudo wget https://dlcdn.apache.org/spark/spark-3.1.3/spark-3.1.3-bin-hadoop3.2.tgz
+        sudo wget https://archive.apache.org/dist/spark/spark-3.1.3/spark-3.1.3-bin-hadoop3.2.tgz
         sudo tar -xvf spark-3.1.3-bin-hadoop3.2.tgz
         sudo rm -rf spark-3.1.3-bin-hadoop3.2.tgz
         sudo chmod 777 /usr/local/kockpit-tools/spark-3.1.3-bin-hadoop3.2
@@ -770,7 +770,7 @@ then
     else
         echo "Spark does not exist. Downloading Spark"
         cd /usr/local/kockpit-tools/
-        sudo wget https://dlcdn.apache.org/spark/spark-3.2.2/spark-3.2.2-bin-hadoop3.2.tgz
+        sudo wget https://archive.apache.org/dist/spark/spark-3.2.2/spark-3.2.2-bin-hadoop3.2.tgz
         sudo tar -xvf spark-3.2.2-bin-hadoop3.2.tgz
         sudo rm -rf spark-3.2.2-bin-hadoop3.2.tgz
         sudo chmod 777 /usr/local/kockpit-tools/spark-3.2.2-bin-hadoop3.2
@@ -876,7 +876,7 @@ then
     else
         echo "Spark does not exist. Downloading Spark"
         cd /usr/local/kockpit-tools/
-        sudo wget https://dlcdn.apache.org/spark/spark-3.0.3/spark-3.0.3-bin-hadoop3.2.tgz
+        sudo wget https://archive.apache.org/dist/spark/spark-3.0.3/spark-3.0.3-bin-hadoop3.2.tgz
         sudo tar -xvf spark-3.0.3-bin-hadoop3.2.tgz
         sudo rm -rf spark-3.0.3-bin-hadoop3.2.tgz
         sudo chmod 777 /usr/local/kockpit-tools/spark-3.0.3-bin-hadoop3.2
