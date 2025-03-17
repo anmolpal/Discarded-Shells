@@ -1634,3 +1634,12 @@ echo "NUCLEUS INSTALLATION COMPLETED"
 #sudo supervisorctl update
 #sudo supervisorctl restart all
 ) 2>&1 | tee -a $log
+
+
+
+#!/bin/bash
+fruits=("Apple" "Banana" "Cherry")
+for fruit in "${fruits[@]}"
+do
+    echo "Fruit: $fruit"
+done
