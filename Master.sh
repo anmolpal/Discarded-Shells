@@ -1634,12 +1634,107 @@ echo "NUCLEUS INSTALLATION COMPLETED"
 #sudo supervisorctl update
 #sudo supervisorctl restart all
 ) 2>&1 | tee -a $log
+####################################################################################################################
 
+# A complex shell script with multiple bugs
 
+# Function to check if a file exists
+check_file() {
+    if [ -f $1 ]; then
+        echo "File $1 exists."
+    else
+        echo "File $1 does not exist."
+    fi
+}
 
-#!/bin/bash
-fruits=("Apple" "Banana" "Cherry")
-for fruit in "${fruits[@]}"
-do
-    echo "Fruit: $fruit"
+# Function to kill a process by name
+kill_process() {
+    pkill $1
+    echo "Process $1 killed."
+}
+
+# Function to download a file from a URL
+download_file() {
+    wget $1 -O $2
+    echo "File downloaded to $2."
+}
+
+# Function to count lines in a file
+count_lines() {
+    lines=$(wc -l $1)
+    echo "File $1 has $lines lines."
+}
+
+# Main script logic
+
+# Bug 1: Incorrect file path
+check_file "/etc/passwd"
+
+# Bug 2: Missing argument for kill_process
+kill_process
+
+# Bug 3: Incorrect URL and output file path
+download_file "http://example.com/nonexistentfile" "/tmp/downloadedfile.txt"
+
+# Bug 4: Counting lines in a non-existent file
+count_lines "/tmp/nonexistentfile.txt"
+
+# Bug 5: Infinite loop
+while true; do
+    echo "This is an infinite loop."
 done
+
+# Bug 6: Incorrect variable usage
+filename="/tmp/testfile.txt"
+echo "Creating $filename"
+touch $filename
+echo "File created: $filenme"  # Typo in variable name
+
+# Bug 7: Incorrect command syntax
+ls -l | grep "*.txt"  # Incorrect use of wildcard in grep
+
+# Bug 8: Unhandled error in command
+rm /root/protectedfile.txt  # Attempting to delete a protected file without sudo
+
+# Bug 9: Incorrect arithmetic operation
+a=10
+b=0
+result=$((a / b))  # Division by zero
+echo "Result: $result"
+
+# Bug 10: Incorrect use of sed
+sed 's/foo/bar/' /tmp/nonexistentfile.txt  # File does not exist
+
+# Bug 11: Incorrect use of awk
+awk '{print $1}' /tmp/nonexistentfile.txt  # File does not exist
+
+# Bug 12: Incorrect use of find
+find /tmp -name "*.log" -exec rm {} \;  # No error handling if no files are found
+
+# Bug 13: Incorrect use of tar
+tar -czf /tmp/archive.tar.gz /nonexistentdir  # Directory does not exist
+
+# Bug 14: Incorrect use of curl
+curl -o /tmp/file.txt http://nonexistenturl.com/file.txt  # URL does not exist
+
+# Bug 15: Incorrect use of date
+date +"%Y-%m-%d %H:%M:%S" --date="next year"  # Incorrect date format
+
+# Bug 16: Incorrect use of grep
+grep "pattern" /tmp/nonexistentfile.txt  # File does not exist
+
+# Bug 17: Incorrect use of cut
+cut -d: -f1 /etc/passwd | grep "root"  # No output redirection
+
+# Bug 18: Incorrect use of sort
+sort /tmp/nonexistentfile.txt  # File does not exist
+
+# Bug 19: Incorrect use of uniq
+uniq /tmp/nonexistentfile.txt  # File does not exist
+
+# Bug 20: Incorrect use of xargs
+echo "/tmp/nonexistentfile.txt" | xargs rm  # File does not exist
+
+# End of script
+
+
